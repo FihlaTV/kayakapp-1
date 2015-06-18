@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, AndroidJSONParsingActivity!</string>
+    <string name="app_name">KayaK</string>
+    <string name="action_settings">settings</string>
+    <string name="favorites">favorites</string>
+
+<!--Strings Favorite-->
+    <string name="add_favr">Added to Favorites</string>
+    <string name="remove_favr">Removed from Favorites</string>
+    <string name="no_favorites_items">No Favorites</string>
+    <string name="no_favorites_msg">Long press on item to add to favorites.</string>
+    <string name="favorites_remove_msg">Long press on item to remove from favorites.</string>
+
+</resources>

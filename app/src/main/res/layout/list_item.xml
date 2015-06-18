@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_row_selector"
+    android:padding="8dp"
+    android:descendantFocusability="blocksDescendants"
+    android:src="@drawable/back"
+    android:scaleType = "centerCrop"
+    >
+
+    <!-- Logo label -->
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/logoURL"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/list_placeholder"/>
+
+    <!-- Name Label -->
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/logoURL"
+        android:layout_toRightOf="@+id/logoURL"
+        android:textSize="@dimen/name"
+        android:textStyle="bold" />
+
+    <!-- Phone number label -->
+    <TextView
+        android:id="@+id/phone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@+id/logoURL"
+        android:textSize="@dimen/phone"
+        android:text="Phone: "
+        android:autoLink="phone"/>
+
+
+    <!-- Site label -->
+    <TextView
+        android:id="@+id/site"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/logoURL"
+        android:textColor="@color/site"
+        android:textSize="@dimen/site"
+        android:text="Web: "
+        android:autoLink="web"/>
+
+    <!-- Code label -->
+    <TextView
+        android:id="@+id/code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/code"
+        android:textSize="@dimen/code" />
+
+    <!-- Favorites button-->
+    <ImageButton
+        android:id="@+id/favorite_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="3dp"
+        android:background="@null"
+        android:contentDescription="@string/favorites" />
+
+</RelativeLayout>

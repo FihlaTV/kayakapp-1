@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:padding="10dp"
+    android:descendantFocusability="blocksDescendants"
+    android:background="@drawable/back">
+
+    <!-- Logo label -->
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/logoURL"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="40dip"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        android:background="@drawable/list_placeholder"/>
+
+    <!-- Name Label -->
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/logoURL"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/name_single"
+        android:textStyle="bold" />
+
+    <!-- Phone number label -->
+    <TextView
+        android:id="@+id/phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="3dip"
+        android:textSize="@dimen/phone_single"
+        android:text="Phone: "
+        android:autoLink="phone"/>
+
+
+    <!-- Site label -->
+    <TextView
+        android:id="@+id/site"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/site"
+        android:textSize="@dimen/site_single"
+        android:text="Web: "
+        android:autoLink="web"/>
+
+    <!-- Code label -->
+    <TextView
+        android:id="@+id/code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/code"
+        android:textSize="@dimen/code" />
+
+</LinearLayout>

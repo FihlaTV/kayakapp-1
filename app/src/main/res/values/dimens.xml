@@ -1,0 +1,13 @@
+<resources>
+
+    <dimen name="name">17dp</dimen>
+    <dimen name="phone">15dip</dimen>
+    <dimen name="site">13dip</dimen>
+    <dimen name="code">12dip</dimen>
+
+
+    <dimen name="name_single">23dp</dimen>
+    <dimen name="phone_single">20dip</dimen>
+    <dimen name="site_single">17dip</dimen>
+
+</resources>
