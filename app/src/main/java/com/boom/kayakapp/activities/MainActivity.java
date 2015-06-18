@@ -38,30 +38,30 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
-	private Fragment contentFragment;
-	AirlinesListFragment airlinesListFragment;
-	FavoriteListFragment favoriteListFragment;
+		private Fragment contentFragment;
+		AirlinesListFragment airlinesListFragment;
+		FavoriteListFragment favoriteListFragment;
 
-	// JSON Node names
-	public static final String TAG_NAME = "name";
-	public static final String TAG_PHONE = "phone";
-	public static final String TAG_SITE = "site";
-	public static final String TAG_LOGO = "logoURL";
-	public static final String TAG_CODE = "code";
+		// JSON Node names
+		public static final String TAG_NAME = "name";
+		public static final String TAG_PHONE = "phone";
+		public static final String TAG_SITE = "site";
+		public static final String TAG_LOGO = "logoURL";
+		public static final String TAG_CODE = "code";
 
-	// Log tag
-	private static final String TAG = MainActivity.class.getSimpleName();
+		// Log tag
+		private static final String TAG = MainActivity.class.getSimpleName();
 
-	// Airlines json url
-	private static final String url = "https://www.kayak.com/h/mobileapis/directory/airlines";
+		// Airlines json url
+		private static final String url = "https://www.kayak.com/h/mobileapis/directory/airlines";
 
-	public ProgressDialog pDialog;
-	public List<Airlines> airlinesList = new ArrayList<Airlines>();
-	public ListView listView;
-	public AirlinesListAdapter adapter;
+		public ProgressDialog pDialog;
+		public List<Airlines> airlinesList = new ArrayList<Airlines>();
+		public ListView listView;
+		public AirlinesListAdapter adapter;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+		@Override
+		protected void onCreate (Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
@@ -178,8 +178,8 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
-	@Override
-	public void onDestroy() {
+		@Override
+		public void onDestroy () {
 		super.onDestroy();
 		hidePDialog();
 	}
@@ -230,7 +230,7 @@ public class MainActivity extends ActionBarActivity {
 
 	public void switchContent(Fragment fragment, String tag) {
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		while (fragmentManager.popBackStackImmediate());
+		while (fragmentManager.popBackStackImmediate()) ;
 
 		if (fragment != null) {
 			FragmentTransaction transaction = fragmentManager

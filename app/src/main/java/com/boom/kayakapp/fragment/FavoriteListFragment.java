@@ -42,7 +42,7 @@ public class FavoriteListFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_airlines_list, container,
+		View view = inflater.inflate(R.layout.activity_main, container,
 				false);
 		// Get favorite items from SharedPreferences.
 		sharedPreference = new SharedPreference();
@@ -59,7 +59,7 @@ public class FavoriteListFragment extends Fragment {
 						getResources().getString(R.string.no_favorites_msg));
 			}
 
-			favoriteList = (ListView) view.findViewById(R.id.list_airlines);
+			favoriteList = (ListView) view.findViewById(R.id.list);
 			if (favorites != null) {
 				airlinesListAdapter = new AirlinesListAdapter(activity, favorites);
 				favoriteList.setAdapter(airlinesListAdapter);
@@ -162,7 +162,6 @@ public class FavoriteListFragment extends Fragment {
 	@Override
 	public void onResume() {
 		getActivity().setTitle(R.string.favorites);
-		getActivity().getActionBar().setTitle(R.string.favorites);
 		super.onResume();
 	}
 }

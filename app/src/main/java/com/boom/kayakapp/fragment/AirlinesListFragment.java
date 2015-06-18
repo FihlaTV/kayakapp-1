@@ -47,7 +47,7 @@ public class AirlinesListFragment extends Fragment implements OnItemLongClickLis
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_airlines_list, container,
+		View view = inflater.inflate(R.layout.activity_main, container,
 				false);
 		findViewsById(view);
 
@@ -59,7 +59,7 @@ public class AirlinesListFragment extends Fragment implements OnItemLongClickLis
 	}
 
     private void findViewsById(View view) {
-		airlinesListView = (ListView) view.findViewById(R.id.list_airlines);
+		airlinesListView = (ListView) view.findViewById(R.id.list);
 	}
 
 	@Override
@@ -98,7 +98,6 @@ public class AirlinesListFragment extends Fragment implements OnItemLongClickLis
 	@Override
 	public void onResume() {
 		getActivity().setTitle(R.string.app_name);
-//		getActivity().getActionBar().setTitle(R.string.app_name);
 		super.onResume();
 	}
 }
