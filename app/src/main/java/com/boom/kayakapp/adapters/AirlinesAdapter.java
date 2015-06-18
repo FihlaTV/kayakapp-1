@@ -19,24 +19,25 @@ import com.boom.kayakapp.util.SharedPreference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AirlinesListAdapter extends ArrayAdapter<Airlines> {
+public class AirlinesAdapter extends ArrayAdapter<Airlines> {
 
 	private Activity activity;
-	private List<Airlines> favorites;
+	private List<Airlines> airlines;
 
-	private LayoutInflater inflater;
+	public LayoutInflater inflater;
 	SharedPreference sharedPreference;
+
 	ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
-	public AirlinesListAdapter(Activity activity, List<Airlines> favorites) {
-		super(activity, R.layout.list_item, favorites);
-		this.activity = activity;
-		if(favorites == null)
-			favorites = new ArrayList<>();
-		else
-			this.favorites = favorites;
-		sharedPreference = new SharedPreference();
+	public AirlinesAdapter(Activity activity, List<Airlines> airlines) {
+		super(activity, R.layout.list_item, airlines);
 
+		this.activity = activity;
+		if(airlines == null)
+			airlines = new ArrayList<>();
+		else
+			this.airlines = airlines;
+		sharedPreference = new SharedPreference();
 	}
 
 	private class ViewHolder {
@@ -45,12 +46,12 @@ public class AirlinesListAdapter extends ArrayAdapter<Airlines> {
 
 	@Override
 	public int getCount() {
-		return favorites.size();
+		return airlines.size();
 	}
 
 	@Override
 	public Airlines getItem(int location) {
-		return favorites.get(location);
+		return airlines.get(location);
 	}
 
 	@Override
@@ -84,22 +85,22 @@ public class AirlinesListAdapter extends ArrayAdapter<Airlines> {
 		holder.favoriteImg = (ImageView) convertView
 				.findViewById(R.id.favorite_button);
 
-		// getting airlines data for the row
-		Airlines m = favorites.get(position);
-		// thumbnail image
+//		 getting airlines data for the row
+		Airlines m = airlines.get(position);
+//		 thumbnail image
 		logoURL.setImageUrl(m.getLogoURL(), imageLoader);
-		// name
+//		 name
 		name.setText(m.getName());
-		// phone
+//		 phone
 		phone.setText("Phone: " + String.valueOf(m.getPhone()));
-		// site
+//		 site
 		site.setText("Web: " + String.valueOf(m.getSite()));
-		// release code
+//		 code
 		code.setText(String.valueOf(m.getCode()));
 
 		/*If a product exists in shared preferences then set heart_red drawable
 		 * and set a tag*/
-		if (checkFavoriteItem(favorites)) {
+		if (checkFavoriteItem(airlines)) {
 			holder.favoriteImg.setImageResource(R.drawable.heart_red);
 			holder.favoriteImg.setTag("red");
 		} else {
@@ -112,10 +113,10 @@ public class AirlinesListAdapter extends ArrayAdapter<Airlines> {
 	/*Checks whether a particular product exists in SharedPreferences*/
 	public boolean checkFavoriteItem(List<Airlines> checkAirlines) {
 		boolean check = false;
-//		List<Airlines> favorites = sharedPreference.getFavorites(activity);
-		if (favorites != null) {
-			for (Airlines product : favorites) {
-				if (product.equals(checkAirlines)) {
+//		List<Airlines> airlines = sharedPreference.getFavorites(activity);
+		if (airlines != null) {
+			for (Airlines airline : this.airlines) {
+				if (airline.equals(checkAirlines)) {
 					check = true;
 					break;
 				}
@@ -127,14 +128,14 @@ public class AirlinesListAdapter extends ArrayAdapter<Airlines> {
 	@Override
 	public void add(Airlines airlines) {
 		super.add(airlines);
-		favorites.add(airlines);
+		this.airlines.add(airlines);
 		notifyDataSetChanged();
 	}
 
 	@Override
 	public void remove(Airlines airlines) {
 		super.remove(airlines);
-		favorites.remove(airlines);
+		this.airlines.remove(airlines);
 		notifyDataSetChanged();
 	}
 

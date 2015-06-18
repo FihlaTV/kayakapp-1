@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,10 +24,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.boom.kayakapp.R;
-import com.boom.kayakapp.adapters.AirlinesListAdapter;
+import com.boom.kayakapp.adapters.AirlinesAdapter;
 import com.boom.kayakapp.controllers.AppController;
-import com.boom.kayakapp.fragment.AirlinesListFragment;
-import com.boom.kayakapp.fragment.FavoriteListFragment;
+import com.boom.kayakapp.fragment.AirlinesFragment;
+import com.boom.kayakapp.fragment.FavoriteFragment;
 import com.boom.kayakapp.model.Airlines;
 
 import org.json.JSONArray;
@@ -39,8 +40,8 @@ import java.util.List;
 public class MainActivity extends ActionBarActivity {
 
 		private Fragment contentFragment;
-		AirlinesListFragment airlinesListFragment;
-		FavoriteListFragment favoriteListFragment;
+		AirlinesFragment airlinesFragment;
+		FavoriteFragment favoriteFragment;
 
 		// JSON Node names
 		public static final String TAG_NAME = "name";
@@ -58,15 +59,18 @@ public class MainActivity extends ActionBarActivity {
 		public ProgressDialog pDialog;
 		public List<Airlines> airlinesList = new ArrayList<Airlines>();
 		public ListView listView;
-		public AirlinesListAdapter adapter;
+		public AirlinesAdapter adapter;
 
 		@Override
 		protected void onCreate (Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+			StrictMode.setThreadPolicy(policy);
+
 		listView = (ListView) findViewById(R.id.list);
-		adapter = new AirlinesListAdapter(this, airlinesList);
+		adapter = new AirlinesAdapter(this, airlinesList);
 		listView.setAdapter(adapter);
 
 		pDialog = new ProgressDialog(this);
@@ -158,23 +162,23 @@ public class MainActivity extends ActionBarActivity {
 		if (savedInstanceState != null) {
 			if (savedInstanceState.containsKey("content")) {
 				String content = savedInstanceState.getString("content");
-				if (content.equals(FavoriteListFragment.ARG_ITEM_ID)) {
-					if (fragmentManager.findFragmentByTag(FavoriteListFragment.ARG_ITEM_ID) != null) {
+				if (content.equals(FavoriteFragment.ARG_ITEM_ID)) {
+					if (fragmentManager.findFragmentByTag(FavoriteFragment.ARG_ITEM_ID) != null) {
 						setFragmentTitle(R.string.favorites);
 						contentFragment = fragmentManager
-								.findFragmentByTag(FavoriteListFragment.ARG_ITEM_ID);
+								.findFragmentByTag(FavoriteFragment.ARG_ITEM_ID);
 					}
 				}
 			}
-			if (fragmentManager.findFragmentByTag(AirlinesListFragment.ARG_ITEM_ID) != null) {
-				airlinesListFragment = (AirlinesListFragment) fragmentManager
-						.findFragmentByTag(AirlinesListFragment.ARG_ITEM_ID);
-				contentFragment = airlinesListFragment;
+			if (fragmentManager.findFragmentByTag(AirlinesFragment.ARG_ITEM_ID) != null) {
+				airlinesFragment = (AirlinesFragment) fragmentManager
+						.findFragmentByTag(AirlinesFragment.ARG_ITEM_ID);
+				contentFragment = airlinesFragment;
 			}
 		} else {
-			airlinesListFragment = new AirlinesListFragment();
+			airlinesFragment = new AirlinesFragment();
 //			setFragmentTitle(R.string.app_name);
-			switchContent(airlinesListFragment, AirlinesListFragment.ARG_ITEM_ID);
+			switchContent(airlinesFragment, AirlinesFragment.ARG_ITEM_ID);
 		}
 	}
 
@@ -200,10 +204,10 @@ public class MainActivity extends ActionBarActivity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		if (contentFragment instanceof FavoriteListFragment) {
-			outState.putString("content", FavoriteListFragment.ARG_ITEM_ID);
+		if (contentFragment instanceof FavoriteFragment) {
+			outState.putString("content", FavoriteFragment.ARG_ITEM_ID);
 		} else {
-			outState.putString("content", AirlinesListFragment.ARG_ITEM_ID);
+			outState.putString("content", AirlinesFragment.ARG_ITEM_ID);
 		}
 		super.onSaveInstanceState(outState);
 	}
@@ -220,8 +224,8 @@ public class MainActivity extends ActionBarActivity {
 		switch (item.getItemId()) {
 			case R.id.menu_favorites:
 				setFragmentTitle(R.string.favorites);
-				favoriteListFragment = new FavoriteListFragment();
-				switchContent(favoriteListFragment, FavoriteListFragment.ARG_ITEM_ID);
+				favoriteFragment = new FavoriteFragment();
+				switchContent(favoriteFragment, FavoriteFragment.ARG_ITEM_ID);
 
 				return true;
 		}
@@ -236,8 +240,8 @@ public class MainActivity extends ActionBarActivity {
 			FragmentTransaction transaction = fragmentManager
 					.beginTransaction();
 			transaction.replace(R.id.content_frame, fragment, tag);
-			//Only FavoriteListFragment is added to the back stack.
-			if (!(fragment instanceof AirlinesListFragment)) {
+			//Only FavoriteFragment is added to the back stack.
+			if (!(fragment instanceof AirlinesFragment)) {
 				transaction.addToBackStack(tag);
 			}
 			transaction.commit();
@@ -262,7 +266,7 @@ public class MainActivity extends ActionBarActivity {
 		FragmentManager fm = getSupportFragmentManager();
 		if (fm.getBackStackEntryCount() > 0) {
 			super.onBackPressed();
-		} else if (contentFragment instanceof AirlinesListFragment
+		} else if (contentFragment instanceof AirlinesFragment
 				|| fm.getBackStackEntryCount() == 0) {
 			finish();
 		}

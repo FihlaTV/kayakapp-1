@@ -7,29 +7,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.boom.kayakapp.R;
-import com.boom.kayakapp.adapters.AirlinesListAdapter;
+import com.boom.kayakapp.adapters.AirlinesAdapter;
 import com.boom.kayakapp.model.Airlines;
 import com.boom.kayakapp.util.SharedPreference;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AirlinesListFragment extends Fragment implements OnItemLongClickListener, AdapterView.OnItemClickListener {
+public class AirlinesFragment extends Fragment implements OnItemClickListener, OnItemLongClickListener{
 
 	public static final String ARG_ITEM_ID = "airlines_list";
 
 	Activity activity;
 	ListView airlinesListView;
 	List<Airlines> airlines;
-	AirlinesListAdapter airlinesListAdapter;
+	AirlinesAdapter airlinesAdapter;
 
-    public AirlinesListFragment() {
+    public AirlinesFragment() {
         airlines = new ArrayList<>();
 
     }
@@ -51,8 +52,8 @@ public class AirlinesListFragment extends Fragment implements OnItemLongClickLis
 				false);
 		findViewsById(view);
 
-		airlinesListAdapter = new AirlinesListAdapter(activity, airlines);
-		airlinesListView.setAdapter(airlinesListAdapter);
+		airlinesAdapter = new AirlinesAdapter(activity, airlines);
+		airlinesListView.setAdapter(airlinesAdapter);
 		airlinesListView.setOnItemClickListener(this);
 		airlinesListView.setOnItemLongClickListener(this);
 		return view;

@@ -5,11 +5,13 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/list_row_selector"
-    android:padding="8dp"
     android:descendantFocusability="blocksDescendants"
-    android:src="@drawable/back"
-    android:scaleType = "centerCrop"
     >
+
+    <RelativeLayout
+        android:id="@+id/pdt_layout_item"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
     <!-- Logo label -->
     <com.android.volley.toolbox.NetworkImageView
@@ -67,7 +69,7 @@
         android:textSize="@dimen/code" />
 
     <!-- Favorites button-->
-    <ImageButton
+    <ImageView
         android:id="@+id/favorite_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,5 +77,13 @@
         android:layout_marginRight="3dp"
         android:background="@null"
         android:contentDescription="@string/favorites" />
+
+</RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/pdt_layout_item"
+        android:background="@color/view_divider_color" />
 
 </RelativeLayout>

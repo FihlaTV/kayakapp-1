@@ -16,13 +16,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.boom.kayakapp.R;
-import com.boom.kayakapp.adapters.AirlinesListAdapter;
+import com.boom.kayakapp.adapters.AirlinesAdapter;
 import com.boom.kayakapp.model.Airlines;
 import com.boom.kayakapp.util.SharedPreference;
 
 import java.util.List;
 
-public class FavoriteListFragment extends Fragment {
+public class FavoriteFragment extends Fragment {
 
 	public static final String ARG_ITEM_ID = "favorite_list";
 
@@ -31,7 +31,7 @@ public class FavoriteListFragment extends Fragment {
 	List<Airlines> favorites;
 
 	Activity activity;
-	AirlinesListAdapter airlinesListAdapter;
+	AirlinesAdapter airlinesAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,8 +61,8 @@ public class FavoriteListFragment extends Fragment {
 
 			favoriteList = (ListView) view.findViewById(R.id.list);
 			if (favorites != null) {
-				airlinesListAdapter = new AirlinesListAdapter(activity, favorites);
-				favoriteList.setAdapter(airlinesListAdapter);
+				airlinesAdapter = new AirlinesAdapter(activity, favorites);
+				favoriteList.setAdapter(airlinesAdapter);
 
 				favoriteList.setOnItemClickListener(new OnItemClickListener() {
 
@@ -100,7 +100,7 @@ public class FavoriteListFragment extends Fragment {
 											favorites.get(position));
 									button.setTag("grey");
 									button.setImageResource(R.drawable.heart_grey);
-									airlinesListAdapter.remove(favorites
+									airlinesAdapter.remove(favorites
 											.get(position));
 									Toast.makeText(
 											activity,

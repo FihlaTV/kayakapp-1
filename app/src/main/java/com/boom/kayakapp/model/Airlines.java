@@ -1,19 +1,20 @@
 package com.boom.kayakapp.model;
 
 public class Airlines {
-	private String name, logoURL, phone, site;
+	private String name, logoURL, phone, site, favorite;
 	private int code;
 
 	public Airlines() {
 	}
 
 	public Airlines
-			(String name, String logoURL, int code, String phone, String site) {
+			(String name, String logoURL, int code, String phone, String site, String favorite) {
 		this.name = name;
 		this.logoURL = logoURL;
 		this.code = code;
 		this.phone = phone;
 		this.site = site;
+        this.favorite = favorite;
 
 	}
 
@@ -32,4 +33,6 @@ public class Airlines {
 	public String getSite() {return site;}
 	public void setSite(String site) {this.site = site;}
 
+    public String getFavorite() {return favorite;}
+    public void setFavorite(String favorite) {this.favorite = favorite;}
 }
