@@ -48,7 +48,7 @@ public class AirlinesFragment extends Fragment implements OnItemClickListener, O
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.activity_main, container,
+		View view = inflater.inflate(R.layout.activity_list, container,
 				false);
 		findViewsById(view);
 

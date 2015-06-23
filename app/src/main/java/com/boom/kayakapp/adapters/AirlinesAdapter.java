@@ -1,7 +1,6 @@
 package com.boom.kayakapp.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
 import com.boom.kayakapp.R;
 import com.boom.kayakapp.controllers.AppController;
 import com.boom.kayakapp.model.Airlines;
@@ -41,6 +39,9 @@ public class AirlinesAdapter extends ArrayAdapter<Airlines> {
 	}
 
 	private class ViewHolder {
+		TextView airlineName;
+		TextView airlinePhone;
+		TextView airlineSite;
 		ImageView favoriteImg;
 	}
 
@@ -60,6 +61,32 @@ public class AirlinesAdapter extends ArrayAdapter<Airlines> {
 	}
 
 	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder = null;
+		if (convertView == null) {
+			LayoutInflater inflater = (LayoutInflater) activity
+					.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.list_item, null);
+			holder = new ViewHolder();
+			holder.airlineName = (TextView) convertView
+					.findViewById(R.id.name);
+			holder.airlinePhone = (TextView) convertView
+					.findViewById(R.id.phone);
+			holder.airlineSite = (TextView) convertView
+					.findViewById(R.id.site);
+			holder.favoriteImg = (ImageView) convertView
+					.findViewById(R.id.favorite_button);
+
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
+		Airlines airline = (Airlines) getItem(position);
+		holder.airlineName.setText(airline.getName());
+		holder.airlinePhone.setText(airline.getPhone());
+		holder.airlineSite.setText(airline.getSite());
+
+	/*@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		ViewHolder holder = null;
@@ -96,7 +123,7 @@ public class AirlinesAdapter extends ArrayAdapter<Airlines> {
 //		 site
 		site.setText("Web: " + String.valueOf(m.getSite()));
 //		 code
-		code.setText(String.valueOf(m.getCode()));
+		code.setText(String.valueOf(m.getCode())); */
 
 		/*If a product exists in shared preferences then set heart_red drawable
 		 * and set a tag*/

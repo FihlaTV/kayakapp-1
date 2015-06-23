@@ -64,7 +64,7 @@ public class MainActivity extends ActionBarActivity {
 		@Override
 		protected void onCreate (Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_list);
 
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
@@ -211,13 +211,6 @@ public class MainActivity extends ActionBarActivity {
 		}
 		super.onSaveInstanceState(outState);
 	}
-
-
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		getMenuInflater().inflate(R.menu.main, menu);
-//		return true;
-//	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
