@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -29,6 +30,7 @@ import com.boom.kayakapp.controllers.AppController;
 import com.boom.kayakapp.fragment.AirlinesFragment;
 import com.boom.kayakapp.fragment.FavoriteFragment;
 import com.boom.kayakapp.model.Airlines;
+import com.boom.kayakapp.util.SharedPreference;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,10 +63,14 @@ public class MainActivity extends ActionBarActivity {
 		public ListView listView;
 		public AirlinesAdapter adapter;
 
+        SharedPreference sharedPreference;
+
 		@Override
 		protected void onCreate (Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
+
+            sharedPreference = new SharedPreference();
 
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
@@ -77,7 +83,6 @@ public class MainActivity extends ActionBarActivity {
 		// Showing progress dialog before making http request
 		pDialog.setMessage("Loading...");
 		pDialog.show();
-
 		// Listview on item click listener
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -92,7 +97,6 @@ public class MainActivity extends ActionBarActivity {
 				String site = ((TextView) view.findViewById(R.id.site))
 						.getText().toString();
 				String logoURL = String.valueOf(((ImageView) view.findViewById(R.id.logoURL)));
-
 				// Starting single contact activity
 				Intent in = new Intent(getApplicationContext(),
 						SingleContactActivity.class);
@@ -101,9 +105,35 @@ public class MainActivity extends ActionBarActivity {
 				in.putExtra(TAG_SITE, site);
 				in.putExtra(TAG_LOGO, logoURL);
 				startActivity(in);
-
 			}
 		});
+
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                               int position, long id) {
+                    ImageView button = (ImageView) view.findViewById(R.id.favorite_button);
+
+                    String tag = button.getTag().toString();
+                    if (tag.equalsIgnoreCase("grey")) {
+                        sharedPreference.addFavorite(MainActivity.this, airlinesList.get(position));
+                        Toast.makeText(MainActivity.this,
+                                MainActivity.this.getResources().getString(R.string.add_favr),
+                                Toast.LENGTH_SHORT).show();
+
+                        button.setTag("red");
+                        button.setImageResource(R.drawable.heart_red);
+                    } else {
+                        sharedPreference.removeFavorite(MainActivity.this, airlinesList.get(position));
+                        button.setTag("grey");
+                        button.setImageResource(R.drawable.heart_grey);
+                        Toast.makeText(MainActivity.this,
+                                MainActivity.this.getResources().getString(R.string.remove_favr),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                }
+            });
 
 		// changing action bar color
 		getSupportActionBar().setBackgroundDrawable(
@@ -120,7 +150,6 @@ public class MainActivity extends ActionBarActivity {
 						// Parsing json
 						for (int i = 0; i < response.length(); i++) {
 							try {
-
 								JSONObject obj = response.getJSONObject(i);
 								Airlines airlines = new Airlines();
 								airlines.setName(obj.getString("name"));
@@ -129,15 +158,13 @@ public class MainActivity extends ActionBarActivity {
 								airlines.setCode(obj.getInt("code"));
 								airlines.setSite(obj.getString("site"));
 
-								// adding airlines to movies array
+								// adding airlines to array
 								airlinesList.add(airlines);
 
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-
 						}
-
 						// notifying list adapter about data changes
 						// so that it renders the list view with updated data
 						adapter.notifyDataSetChanged();
@@ -147,7 +174,6 @@ public class MainActivity extends ActionBarActivity {
 			public void onErrorResponse(VolleyError error) {
 				VolleyLog.d(TAG, "Error: " + error.getMessage());
 				hidePDialog();
-
 			}
 		});
 
@@ -177,12 +203,11 @@ public class MainActivity extends ActionBarActivity {
 			}
 		} else {
 			airlinesFragment = new AirlinesFragment();
-//			setFragmentTitle(R.string.app_name);
 			switchContent(airlinesFragment, AirlinesFragment.ARG_ITEM_ID);
 		}
 	}
 
-		@Override
+    @Override
 		public void onDestroy () {
 		super.onDestroy();
 		hidePDialog();
@@ -245,9 +270,7 @@ public class MainActivity extends ActionBarActivity {
 	protected void setFragmentTitle(int resourseId) {
 		setTitle(resourseId);
 		getSupportActionBar().setTitle(resourseId);
-
 	}
-
 	/*
 	 * We call super.onBackPressed(); when the stack entry count is > 0. if it
 	 * is instanceof ProductListFragment or if the stack entry count is == 0, then
@@ -264,4 +287,9 @@ public class MainActivity extends ActionBarActivity {
 			finish();
 		}
 	}
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

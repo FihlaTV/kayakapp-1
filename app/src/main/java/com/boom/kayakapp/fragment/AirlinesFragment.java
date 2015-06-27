@@ -6,12 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.boom.kayakapp.R;
 import com.boom.kayakapp.adapters.AirlinesAdapter;
@@ -21,18 +16,22 @@ import com.boom.kayakapp.util.SharedPreference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AirlinesFragment extends Fragment implements OnItemClickListener, OnItemLongClickListener{
+public class AirlinesFragment extends Fragment
+//        implements
+//        OnItemClickListener,
+//        OnItemLongClickListener
+{
 
 	public static final String ARG_ITEM_ID = "airlines_list";
 
 	Activity activity;
-	ListView airlinesListView;
-	List<Airlines> airlines;
-	AirlinesAdapter airlinesAdapter;
 
-    public AirlinesFragment() {
-        airlines = new ArrayList<>();
+	public ListView listView;
+	public List<Airlines> airlinesList ;
+	public AirlinesAdapter adapter;
 
+	public AirlinesFragment() {
+        airlinesList = new ArrayList<>();
     }
 
     SharedPreference sharedPreference;
@@ -42,7 +41,6 @@ public class AirlinesFragment extends Fragment implements OnItemClickListener, O
 		super.onCreate(savedInstanceState);
 		activity = getActivity();
 		sharedPreference = new SharedPreference();
-
 	}
 
 	@Override
@@ -52,18 +50,18 @@ public class AirlinesFragment extends Fragment implements OnItemClickListener, O
 				false);
 		findViewsById(view);
 
-		airlinesAdapter = new AirlinesAdapter(activity, airlines);
-		airlinesListView.setAdapter(airlinesAdapter);
-		airlinesListView.setOnItemClickListener(this);
-		airlinesListView.setOnItemLongClickListener(this);
+		adapter = new AirlinesAdapter(activity, airlinesList);
+		listView.setAdapter(adapter);
+//		listView.setOnItemClickListener(this);
+//		listView.setOnItemLongClickListener(this);
 		return view;
 	}
 
     private void findViewsById(View view) {
-		airlinesListView = (ListView) view.findViewById(R.id.list);
+		listView = (ListView) view.findViewById(R.id.list);
 	}
 
-	@Override
+/*	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		Airlines airlines = (Airlines) parent.getItemAtPosition(position);
@@ -77,7 +75,7 @@ public class AirlinesFragment extends Fragment implements OnItemClickListener, O
 
 		String tag = button.getTag().toString();
 		if (tag.equalsIgnoreCase("grey")) {
-			sharedPreference.addFavorite(activity, airlines.get(position));
+			sharedPreference.addFavorite(activity, airlinesList.get(position));
 			Toast.makeText(activity,
 					activity.getResources().getString(R.string.add_favr),
 					Toast.LENGTH_SHORT).show();
@@ -85,7 +83,7 @@ public class AirlinesFragment extends Fragment implements OnItemClickListener, O
 			button.setTag("red");
 			button.setImageResource(R.drawable.heart_red);
 		} else {
-			sharedPreference.removeFavorite(activity, airlines.get(position));
+			sharedPreference.removeFavorite(activity, airlinesList.get(position));
 			button.setTag("grey");
 			button.setImageResource(R.drawable.heart_grey);
 			Toast.makeText(activity,
@@ -95,6 +93,7 @@ public class AirlinesFragment extends Fragment implements OnItemClickListener, O
 
 		return true;
 	}
+	*/
 	
 	@Override
 	public void onResume() {

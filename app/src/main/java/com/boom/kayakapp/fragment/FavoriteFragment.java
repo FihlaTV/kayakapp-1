@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,26 +139,26 @@ public class FavoriteFragment extends Fragment {
 		}
 	}
 
-//	@Override
-//	public void onViewCreated(View view, Bundle savedInstanceState) {
-//		super.onViewCreated(view, savedInstanceState);
-//		btnClearFavorites.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View view) {
-//				sharedPreference.clearFavorites(getActivity());
-//				for (int i = (favorites.size() - 1); i > -1; i--) {
-//					favoritesAdapter.remove(favorites.get(i));
-//					Log.i("FavoritesFragment", "theoretically removing a favorite");
-//				}
-//				Toast.makeText(activity,
-//						activity.getResources().getString(R.string.favorites_cleared),
-//						Toast.LENGTH_SHORT)
-//						.show();
-//				favoritesAdapter.notifyDataSetChanged();
-//			}
-//		});
-//
-//	}
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		btnClearFavorites.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				sharedPreference.clearFavorites(getActivity());
+				for (int i = (favorites.size() - 1); i > -1; i--) {
+					favoritesAdapter.remove(favorites.get(i));
+					Log.i("FavoritesFragment", "theoretically removing a favorite");
+				}
+				Toast.makeText(activity,
+						activity.getResources().getString(R.string.favorites_cleared),
+						Toast.LENGTH_SHORT)
+						.show();
+				favoritesAdapter.notifyDataSetChanged();
+			}
+		});
+
+	}
 	
 	@Override
 	public void onResume() {
