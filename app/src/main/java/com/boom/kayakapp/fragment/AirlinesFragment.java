@@ -6,7 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.boom.kayakapp.R;
 import com.boom.kayakapp.adapters.AirlinesAdapter;
@@ -17,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AirlinesFragment extends Fragment
-//        implements
-//        OnItemClickListener,
-//        OnItemLongClickListener
+        implements
+        AdapterView.OnItemClickListener,
+        AdapterView.OnItemLongClickListener
 {
 
 	public static final String ARG_ITEM_ID = "airlines_list";
@@ -46,14 +49,14 @@ public class AirlinesFragment extends Fragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.activity_list, container,
+		View view = inflater.inflate(R.layout.activity_main, container,
 				false);
 		findViewsById(view);
 
 		adapter = new AirlinesAdapter(activity, airlinesList);
 		listView.setAdapter(adapter);
-//		listView.setOnItemClickListener(this);
-//		listView.setOnItemLongClickListener(this);
+		listView.setOnItemClickListener(this);
+		listView.setOnItemLongClickListener(this);
 		return view;
 	}
 
@@ -61,7 +64,7 @@ public class AirlinesFragment extends Fragment
 		listView = (ListView) view.findViewById(R.id.list);
 	}
 
-/*	@Override
+	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		Airlines airlines = (Airlines) parent.getItemAtPosition(position);
@@ -93,7 +96,7 @@ public class AirlinesFragment extends Fragment
 
 		return true;
 	}
-	*/
+
 	
 	@Override
 	public void onResume() {

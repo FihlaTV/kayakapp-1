@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
@@ -20,7 +21,6 @@
         android:divider="@color/list_divider"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/list_row_selector" />
-
 
     <FrameLayout
         android:id="@+id/content_frame"
@@ -45,4 +45,5 @@
     android:divider="@color/list_divider"
     android:dividerHeight="1dp"
     android:listSelector="@drawable/list_row_selector"/>
+
 </android.support.v4.widget.DrawerLayout>

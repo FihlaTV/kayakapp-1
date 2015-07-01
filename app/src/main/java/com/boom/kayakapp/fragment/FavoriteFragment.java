@@ -42,7 +42,7 @@ public class FavoriteFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.activity_list, container,
+		View view = inflater.inflate(R.layout.activity_main, container,
 				false);
 		// Get favorite items from SharedPreferences.
 		sharedPreference = new SharedPreference();
@@ -60,7 +60,7 @@ public class FavoriteFragment extends Fragment {
 			}
 
 			favoriteList = (ListView) view.findViewById(R.id.list);
-			if (favorites != null) {
+			if (favorites == null) {
 				airlinesAdapter = new AirlinesAdapter(activity, favorites);
 				favoriteList.setAdapter(airlinesAdapter);
 
