@@ -1,6 +1,7 @@
 package com.boom.kayakapp.adapters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,32 +9,27 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.ImageLoader;
 import com.boom.kayakapp.R;
-import com.boom.kayakapp.controllers.AppController;
 import com.boom.kayakapp.model.Airlines;
 import com.boom.kayakapp.util.SharedPreference;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AirlinesAdapter extends ArrayAdapter<Airlines> {
 
-	private Activity activity;
-	private List<Airlines> airlines;
+	private Context context;
+    List<Airlines> airlines;
+    SharedPreference sharedPreference;
 
-	public LayoutInflater inflater;
-	SharedPreference sharedPreference;
+//	public LayoutInflater inflater;
+//	ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 
-	ImageLoader imageLoader = AppController.getInstance().getImageLoader();
-
-	public AirlinesAdapter(Activity activity, List<Airlines> airlines) {
-		super(activity, R.layout.list_item, airlines);
-
-		this.activity = activity;
-		if(airlines == null)
-			airlines = new ArrayList<>();
-		else
+	public AirlinesAdapter(Context context, List<Airlines> airlines) {
+		super(context, R.layout.list_items, airlines);
+		this.context = context;
+//		if(airlines == null)
+//			airlines = new ArrayList<>();
+//		else
 			this.airlines = airlines;
 		sharedPreference = new SharedPreference();
 	}
@@ -51,8 +47,8 @@ public class AirlinesAdapter extends ArrayAdapter<Airlines> {
 	}
 
 	@Override
-	public Airlines getItem(int location) {
-		return airlines.get(location);
+	public Airlines getItem(int position) {
+		return airlines.get(position);
 	}
 
 	@Override
@@ -64,9 +60,9 @@ public class AirlinesAdapter extends ArrayAdapter<Airlines> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		if (convertView == null) {
-			LayoutInflater inflater = (LayoutInflater) activity
+			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.list_item, null);
+			convertView = inflater.inflate(R.layout.list_items, null);
 			holder = new ViewHolder();
 			holder.airlineName = (TextView) convertView
 					.findViewById(R.id.name);
@@ -140,10 +136,11 @@ public class AirlinesAdapter extends ArrayAdapter<Airlines> {
 	/*Checks whether a particular product exists in SharedPreferences*/
 	public boolean checkFavoriteItem(List<Airlines> checkAirlines) {
 		boolean check = false;
-//		List<Airlines> airlines = sharedPreference.getFavorites(activity);
-		if (airlines != null) {
-			for (Airlines airline : this.airlines) {
-				if (airline.equals(checkAirlines)) {
+		List<Airlines> favorites = sharedPreference.getFavorites(context);
+		if (favorites != null) {
+//			for (Airlines airline : this.airlines) {
+            for (Airlines airlines: favorites){
+				if (airlines.equals(checkAirlines)) {
 					check = true;
 					break;
 				}

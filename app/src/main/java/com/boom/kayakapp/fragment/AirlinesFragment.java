@@ -49,7 +49,7 @@ public class AirlinesFragment extends Fragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.activity_main, container,
+		View view = inflater.inflate(R.layout.list_fragment, container,
 				false);
 		findViewsById(view);
 
